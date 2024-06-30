@@ -1,4 +1,4 @@
-FROM ubuntu22.04
+FROM ubuntu:22.04
 
 WORKDIR /home/ros2_ws/src
 
@@ -20,9 +20,9 @@ RUN apt update && \
     ca-certificates \
     libsndfile1-dev \
     libgl1 \
-    python3.8 \
     python3-pip \
     tmux \
+    tree \
     gnupg2 \
     lsb-release
 
