@@ -129,9 +129,6 @@ parse_git_branch() {
 
 export PS1="\[\e[1;37m\]🐟🔰\u| \h🤮\e[m \e[40;5;33m\w\e[m\e[41;5;30m\]\$(parse_git_branch)\e[00m\n>>>"
 
-
-export ROS_DOMEIN_ID=221
-
 alias cb='colcon build'
 alias cbcl='colcon build'
 alias vbash='vi ~/.bashrc'
