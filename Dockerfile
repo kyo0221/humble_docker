@@ -1,10 +1,10 @@
 FROM ubuntu:22.04
 
-WORKDIR /home/ros2_ws/src
+WORKDIR /ros2_ws/src
 
-COPY config/.bashrc /home/.bashrc
-COPY config/.vimrc /home/.vimrc
-COPY config/.tmux.conf /home/.tmux.config
+COPY config/.bashrc /.bashrc
+COPY config/.vimrc /.vimrc
+COPY config/.tmux.conf /.tmux.config
 
 ENV DEVIAN_FRONTEND noninteractive
 ENV TZ Asia/Tokyo
@@ -22,6 +22,7 @@ RUN apt update && \
     build-essential \
     git \
     git-lfs \
+    vim \
     curl \
     ca-certificates \
     libsndfile1-dev \
