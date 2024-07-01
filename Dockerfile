@@ -2,12 +2,18 @@ FROM ubuntu:22.04
 
 WORKDIR /home/ros2_ws/src
 
-ENV DEVIAN_FRONTEND noninteractive
-ENV TZ Asia/Tokyo
-
 COPY config/.bashrc /home/.bashrc
 COPY config/.vimrc /home/.vimrc
 COPY config/.tmux.conf /home/.tmux.config
+
+ENV DEVIAN_FRONTEND noninteractive
+ENV TZ Asia/Tokyo
+
+# Install tzdata with environment variables to bypass interactive prompt
+RUN apt update && \
+    ln -fs /usr/share/zoneinfo/$TZ /etc/localtime && \
+    echo $TZ > /etc/timezone && \
+    apt install -y tzdata
 
 RUN apt update && \
     apt install -y \
@@ -33,5 +39,3 @@ RUN apt update && \
     apt install -y ros-humble-desktop
 
 RUN apt install -y python3-colcon-common-extensions
-
-
