@@ -1,3 +1,3 @@
 #!/bin/bash
 
-eval "docker image build -t kyo0221/humble:ros2-env ."
+eval "docker image build --no-cache -t kyo0221/humble:ros2-env ."
