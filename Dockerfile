@@ -63,6 +63,6 @@ RUN sudo apt-get update && sudo apt-get install -y --no-install-recommends \
 WORKDIR /home
 ENV HOME /home
 
-COPY config/.bashrc /home/.bashrc
-COPY config/.vimrc /home/.vimrc
-COPY config/.tmux.conf /home/.tmux.conf
+COPY config/.bashrc .bashrc
+COPY config/.vimrc .vimrc
+COPY config/.tmux.conf .tmux.conf
