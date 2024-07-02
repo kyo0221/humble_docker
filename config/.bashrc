@@ -127,10 +127,7 @@ parse_git_branch() {
 
 # Customize the bash prompt to include the username, directory, and red colored git branch with brackets
 
-export PS1="\[\e[1;37m\]🐟🔰\u| \h🤮\e[m \e[40;5;33m\w\e[m\e[41;5;30m\]\$(parse_git_branch)\e[00m\n>>>"
-
-
-export ROS_DOMEIN_ID=221
+export PS1="\[\e[1;37m\]🐳\u| \h🤮\e[m \e[40;5;1;35m\w\e[m\e[41;5;30m\]\$(parse_git_branch)\e[00m\n>>>"
 
 alias cb='colcon build'
 alias cbcl='colcon build'
