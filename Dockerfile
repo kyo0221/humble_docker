@@ -1,13 +1,13 @@
 FROM ubuntu:22.04
 
-WORKDIR /ros2_ws/src
-
-COPY config/.bashrc /.bashrc
-COPY config/.vimrc /.vimrc
-COPY config/.tmux.conf /.tmux.config
-
 ENV DEVIAN_FRONTEND noninteractive
 ENV TZ Asia/Tokyo
+
+ARG ROS_DISTRO=humble
+ARG ROS_PKG=desktop
+
+ENV ROS_ROOT=/opt/ros/${ROS_DISTRO}
+ENV ROS_PYTHON_VERSION=3
 
 # Install tzdata with environment variables to bypass interactive prompt
 RUN apt update && \
@@ -15,28 +15,54 @@ RUN apt update && \
     echo $TZ > /etc/timezone && \
     apt install -y tzdata
 
-RUN apt update && \
-    apt install -y \
-    wget \
-    bzip2 \
-    build-essential \
-    git \
-    git-lfs \
-    vim \
-    curl \
-    ca-certificates \
-    libsndfile1-dev \
-    libgl1 \
-    python3-pip \
-    tmux \
-    tree \
-    gnupg2 \
-    lsb-release
+# install basic packages
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        sudo \
+        x11-apps \
+        mesa-utils \
+        curl \
+        lsb-release \
+        less \
+        tmux \
+        command-not-found \
+        git \
+        xsel \
+        vim \
+        wget \
+        gnupg \
+        build-essential \
+        python3-dev \
+        python3-pip \
+        && \
+    sudo apt-get clean && \
+    sudo rm -rf /var/lib/apt/lists/*
 
-RUN curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add - && \
-    sh -c 'echo "deb http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" > /etc/apt/sources.list.d/ros2-latest.list'
+RUN sudo curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add - && \
+    echo "deb http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" > /etc/apt/sources.list.d/ros2-latest.list
 
-RUN apt update && \
-    apt install -y ros-humble-desktop
+RUN sudo apt-get update && sudo apt-get install -y --no-install-recommends \
+        ros-humble-desktop \
+        && \
+    sudo apt-get clean && \
+    sudo rm -rf /var/lib/apt/lists/* 
 
-RUN apt install -y python3-colcon-common-extensions
+# install ros2 packages
+RUN sudo apt-get update && sudo apt-get install -y --no-install-recommends \
+        ros-${ROS_DISTRO}-${ROS_PKG} \
+        ros-${ROS_DISTRO}-gazebo-ros-pkgs \
+        ros-${ROS_DISTRO}-joint-state-publisher* \
+        python3-colcon-common-extensions \
+        ros-${ROS_DISTRO}-can-msgs \ 
+        python3-colcon-mixin \
+        python3-rosdep \
+        python3-vcstool && \
+    sudo rosdep init && \
+    rosdep update --rosdistro ${ROS_DISTRO} && \
+    sudo apt-get clean && sudo rm -rf /var/lib/apt/lists/*
+
+WORKDIR /home
+ENV HOME /home
+
+COPY config/.bashrc /home/.bashrc
+COPY config/.vimrc /home/.vimrc
+COPY config/.tmux.conf /home/.tmux.conf
