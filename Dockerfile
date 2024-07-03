@@ -28,6 +28,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         git \
         xsel \
         vim \
+        plocate \
+        tree \
         wget \
         gnupg \
         build-essential \
@@ -63,6 +65,6 @@ RUN sudo apt-get update && sudo apt-get install -y --no-install-recommends \
 WORKDIR /home
 ENV HOME /home
 
-COPY config/.bashrc .bashrc
-COPY config/.vimrc .vimrc
-COPY config/.tmux.conf .tmux.conf
+COPY config/.bashrc /home/.bashrc
+COPY config/.vimrc /home/.vimrc
+COPY config/.tmux.conf /home/.tmux.conf
