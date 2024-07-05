@@ -1,8 +1,5 @@
 FROM ubuntu:22.04
 
-WORKDIR /home
-ENV HOME /home 
-
 ENV DEVIAN_FRONTEND noninteractive
 ENV TZ Asia/Tokyo
 
@@ -64,6 +61,9 @@ RUN sudo apt-get update && sudo apt-get install -y --no-install-recommends \
     sudo rosdep init && \
     rosdep update --rosdistro ${ROS_DISTRO} && \
     sudo apt-get clean && sudo rm -rf /var/lib/apt/lists/*
+
+WORKDIR /home
+ENV HOME /home 
 
 COPY config/.bashrc /home/.bashrc
 COPY config/.vimrc /home/.vimrc
