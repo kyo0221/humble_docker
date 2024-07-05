@@ -130,12 +130,11 @@ parse_git_branch() {
 export PS1="\[\e[1;37m\]🐳\u| \h🤮\e[m \e[40;5;1;35m\w\e[m\e[41;5;30m\]\$(parse_git_branch)\e[00m\n>>>"
 
 alias cb='colcon build'
-alias cbcl='colcon build'
+alias cbcl='colcon build && rm -rf /build && rm -rf /install && rm -rf /log'
+alias cbsy='colcon build --symlink-install'
+alias cbco='colcon build --continue-on-error'
 alias vbash='vi ~/.bashrc'
-alias bash='source ~/.bashrc'
-alias co='code .'
-
-#alias conda='conda activate'
+alias sbash='source ~/.bashrc'
 
 git config --global alias.co checkout
 git config --global alias.br branch

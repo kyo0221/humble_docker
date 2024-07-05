@@ -1,5 +1,8 @@
 FROM ubuntu:22.04
 
+WORKDIR /home
+ENV HOME /home 
+
 ENV DEVIAN_FRONTEND noninteractive
 ENV TZ Asia/Tokyo
 
@@ -28,6 +31,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         git \
         xsel \
         vim \
+        plocate \
+        tree \
         wget \
         gnupg \
         build-essential \
@@ -60,9 +65,8 @@ RUN sudo apt-get update && sudo apt-get install -y --no-install-recommends \
     rosdep update --rosdistro ${ROS_DISTRO} && \
     sudo apt-get clean && sudo rm -rf /var/lib/apt/lists/*
 
-WORKDIR /home
-ENV HOME /home
+COPY config/.bashrc /home/.bashrc
+COPY config/.vimrc /home/.vimrc
+COPY config/.tmux.conf /home/.tmux.conf
 
-COPY config/.bashrc .bashrc
-COPY config/.vimrc .vimrc
-COPY config/.tmux.conf .tmux.conf
+CMD ["bash"]
