@@ -68,5 +68,6 @@ ENV HOME /home
 COPY config/.bashrc /home/.bashrc
 COPY config/.vimrc /home/.vimrc
 COPY config/.tmux.conf /home/.tmux.conf
+COPY test/.test.sh /home/.test
 
 CMD ["bash"]
