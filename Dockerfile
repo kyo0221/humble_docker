@@ -53,8 +53,12 @@ RUN sudo apt-get update && sudo apt-get install -y --no-install-recommends \
         ros-${ROS_DISTRO}-${ROS_PKG} \
         ros-${ROS_DISTRO}-gazebo-ros-pkgs \
         ros-${ROS_DISTRO}-joint-state-publisher* \
-        python3-colcon-common-extensions \
+        ros-${ROS_DISTRO}-velodyne-description \
+        ros-${ROS_DISTRO}-joint-state-publisher \
+        ros-${ROS_DISTRO}-diagnostic-updater \
+        ros-${ROS_DISTRO}-laser-proc \
         ros-${ROS_DISTRO}-can-msgs \ 
+        python3-colcon-common-extensions \
         python3-colcon-mixin \
         python3-rosdep \
         python3-vcstool && \
@@ -64,10 +68,5 @@ RUN sudo apt-get update && sudo apt-get install -y --no-install-recommends \
 
 WORKDIR /home
 ENV HOME /home 
-
-COPY config/.bashrc /home/.bashrc
-COPY config/.vimrc /home/.vimrc
-COPY config/.tmux.conf /home/.tmux.conf
-COPY test/.test.sh /home/.test
 
 CMD ["bash"]
